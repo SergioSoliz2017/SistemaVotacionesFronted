@@ -1,0 +1,178 @@
+
+.divComite{
+    position: relative;
+    margin-left: 41.6vh;
+    width: 81.4%;
+    height: 99.9vh;
+    background-color: #DAE1E7;   
+}
+
+.titleC{
+    text-align:center;  
+    color: #00909E;
+    font-size: 3rem;
+}
+.TablaComite{
+    margin-top: 5%;
+    margin-left: 13%;
+    margin-right: 1%;
+    height: 50vh;
+    width: 850px;
+    overflow-y:scroll;   
+}
+.headerComite {
+    background-color: #00909E;   
+    color: #ffffff;
+    position: sticky;
+    top: 0; 
+    z-index: 1; 
+   
+  }
+  .BodyComite{
+    background-color: #ffffff;
+  }
+  .TablaComite th {
+    width: 450px;
+    border: solid #00909E;
+  }
+  
+  .TablaComite td {
+    width: 5%;
+    height: 5%;
+    border-bottom: solid #00909E;
+    border-right: solid #ffffff;
+    border-top: solid #00909E;
+    border-left: solid #ffffff;
+    border-width: 2px;
+  }
+  .botonComite1{
+    height: 45%;
+    width: 30%;
+    text-align: center;
+    background-color: #ed1128;
+    color: #ffffff;
+    border-radius: 6px;
+    border: solid #ed1128;
+  }
+  .botonComite2{
+    height: 45%;
+    width: 30%;
+    text-align: center;
+    background-color: #5685C7;
+    border: solid #5685C7;
+    border-radius: 6px;
+    color: #ffffff;
+  }
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .modal-overlay{
+    background-color: #00919ee4;
+    width: 500px;
+    height: 400px;
+    position: fixed;
+    top: 15vh;
+    bottom: 50vh;
+    right: 50vh;
+    left: 93vh;
+    z-index: 1;
+    border-radius: 20px;
+  }
+  .modal-content{
+    width: 90%;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 10px;
+  
+  }
+  .BotonComiteModal{
+      padding: 5px;
+      font-size: large;
+      float: right;
+      cursor: pointer;
+      
+  }
+  button {
+    margin: 20px;
+  }
+  .custom-btn {
+    width: 90px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+    justify-content: center;
+  align-items: flex-end;
+  }
+  
+  /* 1 */
+  .btn-1 {
+    background: rgb(6,14,131);
+    background: linear-gradient(0deg, rgba(6,14,131,1) 0%, rgba(12,25,180,1) 100%);
+    border: none;
+    left: 180px;
+    bottom: -180px;
+  }
+  .btn-1:hover {
+     background: rgb(0,3,255);
+  background: linear-gradient(0deg, rgba(0,3,255,1) 0%, rgba(2,126,251,1) 100%);
+  }
+  /* 1 */
+  .btn-2 {
+    background: rgb(96,9,240);
+    background: linear-gradient(0deg, rgba(96,9,240,1) 0%, rgba(129,5,240,1) 100%);
+    border: none;
+    width: 115px;
+    justify-content: center;
+    
+  }
+  .btn-2:before {
+    height: 0%;
+    width: 1.5px;
+  }
+  .btn-2:hover {
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+      inset -4px -4px 6px 0 rgba(255,255,255,.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+  }
+
+    /* 1 */
+  .btn-3 {
+    background: rgb(0,172,238);;
+    background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+    border: none;
+    width: 115px;
+    justify-content: center;
+    
+  }
+  .btn-3:before {
+    height: 0%;
+    width: 1.5px;
+  }
+  .btn-3:hover {
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+      inset -4px -4px 6px 0 rgba(255,255,255,.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+  }
+  
+ 
+  .H2Comite{
+    text-align: center;
+    color: #ffffff;
+  }
