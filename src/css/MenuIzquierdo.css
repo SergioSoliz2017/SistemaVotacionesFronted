@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+*{
+	list-style: none;
+	text-decoration: none;
+	padding: 0;
+  margin: 0;
+	/*box-sizing: border-box;*/
+	font-family: 'Open Sans', sans-serif;
+}
+
+.wrapper .sidebar{
+	background: rgb(0,57,116);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 255px;
+	height: 100%;
+	padding: 20px 0;
+	transition: all 0.5s ease;
+}
+
+.wrapper .sidebar .profile{
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.wrapper .sidebar .profile img{
+	display: block;
+	width: 100px;
+	height: 120px;
+	margin: 0 auto;
+}
+
+.wrapper .sidebar .profile h3{
+	color: #ffffff;
+	margin: 5px 5px 3px;
+}
+.wrapper .sidebar .profile b{
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.listaSidebar {
+    height: auto;
+    width: 105%;
+    padding-left: 0;
+  }
+  
+  .listaSidebar .row {
+    width: 99%;
+    height: 8vh;
+    border: 1px solid #10558d;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+  
+  }
+  
+  .listaSidebar .row:hover {
+    cursor: pointer;
+    background-color: #ffffff;
+    font-style: bold;
+    color: rgb(0,57,116);
+  }
+  
+  .listaSidebar #active {
+    background-color: #ffffff;
+    font-weight: bold;
+    color: rgb(0,57,116);
+  }
+
+ 
+
+
