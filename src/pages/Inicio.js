@@ -1,14 +1,18 @@
 import React from 'react';
-import FcytImage from '../assets/fcyt.png';
+import "../css/inicio.css"
 
 const Inicio = () => {
   return (
-    <div className="inicio-container">
-      <img src={FcytImage} alt="Logo FCyT" className="fcyt-image" />
-      <div className="welcome-text">
-        <h2>Bienvenido al sistema administrador de elecciones de la Facultad de Ciencias y Tecnología</h2>
-      </div>
+    <div className='Inicio1'>
+         <div className="inicio-container">
+          <div className='LetrasDescripcion'>
+          <h2 className='Letras2'>Bienvenido al sistema de administracion de elecciones </h2>
+          <h2 className='Letras1'> FACULTAD DE CIENCIAS Y TECNOLOGIA</h2>
+          </div>
+            
+        </div>
     </div>
+    
   );
 };
 
