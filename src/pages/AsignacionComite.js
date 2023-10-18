@@ -14,7 +14,7 @@ function AsignacionComite() {
   useEffect(() => {
     // Realiza una solicitud GET al servidor para obtener la lista de elecciones
     axios
-      .get("http://localhost:8000/elecciones")
+      .get("http://localhost:8000/obtenerProcesosElectorales")
       .then((response) => {
         setproceso(response.data);
       })
@@ -79,9 +79,9 @@ function AsignacionComite() {
           </thead>
           <tbody className="BodyComite">
             {proceso.map((elemento) => (
-              <tr key={elemento.CODELECCION}>
-                <td>{elemento.CODELECCION}</td>
-                <td>{elemento.MOTIVOELECCION}</td>
+              <tr key={elemento.CODPROCESOELECTORAL}>
+                <td>{elemento.CODPROCESOELECTORAL}</td>
+                <td>{elemento.CARGO}</td>
                 <td>
                   <button
                     className="botonComite1"

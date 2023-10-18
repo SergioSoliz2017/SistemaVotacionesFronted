@@ -40,12 +40,15 @@ const LoginPage = () => {
 
       if(errorNombre === false  && errorContraseña === false )
       {
-        axios.get(url + "verificarAdministrador/"+ showValorInput.name).then(response => {
+        console.log( showValorInput.name);
+        console.log(url + "verificarAdministrador/"+ showValorInput.name);
+        axios.get(url + "verificarAdministrador/"+ 10).then(response => {
             console.log(response.data)
+            
             if (response.data.length>0){
                 if (showValorInput.password === response.data[0].CONTRASENAADMINISTRADOR){
                     alert("administrador correcto")
-                    navigate("/home/"+showValorInput.name)
+                    navigate("/home")
                 }else{
                     alert("contraseña incorrecta")
                 }

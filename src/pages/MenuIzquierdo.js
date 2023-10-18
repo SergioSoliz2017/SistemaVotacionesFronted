@@ -50,7 +50,7 @@ function MenuIzquierdo() {
 
                 </div>
                 
-                    <ul className='listaSidebar'>
+                    <ul className='listaSidebar' >
 
                                         <li  className="row" id={ mostrarInicio ? "active" : ""}
                                         onClick=

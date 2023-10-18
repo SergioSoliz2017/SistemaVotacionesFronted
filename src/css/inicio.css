@@ -9,14 +9,14 @@
     width:98%;
     height: 98%;
     background:url(../img/fcyt.png)no-repeat;
-    background-size: 100% 50%;
+    background-size: 100% 100%;
     display: grid;
     place-items: center;
     margin: 8px 10px 0 10px;
     opacity: .7;
 }  
 .LetrasDescripcion{
-    margin-bottom: 300px;
+    margin-bottom: 350px;
     background-color: #ffffff;
     width: 100%;
     opacity: .8;
