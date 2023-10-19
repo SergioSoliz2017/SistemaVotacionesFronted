@@ -4,100 +4,81 @@ import Modal from "./Modal";
 import axios from "axios";
 
 const CrearElecciones = () => {
-  const initialState = {
-    nuevoTipoEleccion: "",
-    motivo: "",
-    motivoPersonalizado: "",
-    fechaInicio: "",
-    fechaFin: "",
-    fechaElecciones: "",
-  };
 
-  const [formData, setFormData] = useState(initialState);
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const url = "http://127.0.0.1:8000/";
-
-  const handleNuevoTipoEleccionChange = (e) => {
-    const nuevoTipoEleccion = e.target.value;
-    let motivo = "";
-    let motivoPersonalizado = "";
-
-    if (nuevoTipoEleccion === "No") {
-      // Si elige "No", limpiamos los valores de motivo y motivoPersonalizado
-      motivo = "";
-      motivoPersonalizado = "";
-    }
-
-    setFormData({
-      ...formData,
-      nuevoTipoEleccion,
-      motivo,
-      motivoPersonalizado,
-    });
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleGuardarClick = () => {
-    if (
-      !formData.motivo ||
-      !formData.fechaInicio ||
-      !formData.fechaFin ||
-      !formData.fechaElecciones
-    ) {
-      setModalMessage("Tiene que llenar todos los campos.");
-      setShowModal(true);
-      return;
-    }
-
-    const startDate = new Date(formData.fechaInicio);
-    const endDate = new Date(formData.fechaFin);
-    const electionsDate = new Date(formData.fechaElecciones);
-
-    if (endDate <= startDate || electionsDate <= endDate) {
-      setModalMessage("Ingrese un valor correcto para las fechas.");
-      setShowModal(true);
-      return;
-    }
-    var codigo = generarCodigo();
-    const proceso = {
-      CODPROCESOELECTORAL: codigo,
-
-      CARGO: formData.motivo,
-      FECHAINICIOCONVOCATORIA: formData.fechaInicio,
-      FECHAFINCONVOCATORIA: formData.fechaFin,
-      FECHAELECCIONES: formData.fechaElecciones,
-      TIPOELECCIONES: "",
-      CONVOCATORIA: "",
+    const initialState = {
+      nuevoTipoEleccion: "",
+      motivoEleccion: "",
+      motivoPersonalizado: "",
+      fechaInicio: "",
+      fechaFin: "",
+      fechaElecciones: "",
+    } 
+  
+    const [formData, setFormData] = useState(initialState);
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+  
+    const url = "http://localhost:8000/";
+    const handleNuevoTipoEleccionChange = (e) => {
+      const nuevoTipoEleccion = e.target.value;
+      let motivoEleccion = "";
+      let motivoPersonalizado = "";
+  
+      if (nuevoTipoEleccion === "No") {
+        // Si elige "No", limpiamos los valores de motivo y motivoPersonalizado
+        motivoEleccion = "";
+        motivoPersonalizado = "";
+      }
+  
+      setFormData({
+        ...formData,
+        nuevoTipoEleccion,
+        motivoEleccion,
+        motivoPersonalizado,
+      });
     };
-
-    function generarCodigo() {
-      var codigo;
-      var fechaActual = new Date();
-
-      // Obtener los componentes de la fecha
-      var dia = fechaActual.getDate();
-      var mes = fechaActual.getMonth() + 1; // ¡Recuerda que los meses comienzan desde 0!
-      var año = fechaActual.getFullYear();
-
-      codigo = año + mes + dia + formData.motivo.substring(0, 3);
-      return codigo;
-    }
-    axios.post(url + "crearProcesoElectoral", proceso).then((response) => {
-      setModalMessage(
-        `El proceso electoral se inició de forma correcta para elegir a: ${formData.motivo}`
-      );
-      setShowModal(true);
-      setFormData(initialState);
-    });
-
-    // Reiniciar el formulario
-  };
-
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    };
+  
+    const handleGuardarClick = () => {
+     console.log(formData.motivoEleccion)
+      if (!formData.motivoEleccion || !formData.fechaInicio || !formData.fechaFin || !formData.fechaElecciones) {
+        setModalMessage("Por favor, complete todos los campos.");
+        setShowModal(true);
+        return;
+      }
+  
+      if (new Date(formData.fechaFin) <= new Date(formData.fechaInicio) || new Date(formData.fechaElecciones) <= new Date(formData.fechaFin)) {
+        setModalMessage("Las fechas no son válidas. Asegúrese de que la fecha de inicio sea anterior a la fecha de fin y la fecha de elecciones sea posterior a la fecha de fin.");
+        setShowModal(true);
+        return;
+      }
+  
+      const nuevoProceso = {
+        COD_ADMIN: "", // Reemplaza con el código de administrador adecuado
+        COD_FRENTE: 0, // Reemplaza con el código de frente adecuado
+        COD_TEU: 0, // Reemplaza con el código de TEU adecuado
+        COD_COMITE: 0, // Reemplaza con el código de comité adecuado
+        MOTIVO_ELECCION: formData.motivoEleccion,
+        FECHA_ELECCION: formData.fechaElecciones,
+        FECHA_INI_CONVOCATORIA: formData.fechaInicio,
+        FECHA_FIN_CONVOCATORIA: formData.fechaFin,
+        ELECCION_ACTIVA: true
+      };
+  
+      axios.post(url + "elecciones_data", nuevoProceso)
+        .then((response) => {
+          console.log("El proceso se registro correctamente");
+          setModalMessage(`El proceso electoral se ha creado con éxito para el motivo: ${formData.motivoEleccion}`);
+          setShowModal(true);
+          setFormData(initialState);
+        })
+        .catch((error) => {
+          console.error("Error al crear el proceso electoral:", error);
+        });
+    };
   return (
     <div className="crear-elecciones">
       <h3>Nuevo proceso electoral</h3>
@@ -118,8 +99,8 @@ const CrearElecciones = () => {
           <label>Motivo:</label>
           <input
             type="text"
-            name="motivo"
-            value={formData.motivo}
+            name="motivoEleccion"
+            value={formData.motivoEleccion}
             onChange={handleInputChange}
             placeholder="Ingrese el motivo"
             className="motivo-input"
@@ -130,8 +111,8 @@ const CrearElecciones = () => {
         <div className="form-group">
           <label>Motivo:</label>
           <select
-            name="motivo"
-            value={formData.motivo}
+            name="motivoEleccion"
+            value={formData.motivoEleccion}
             onChange={handleInputChange}
             className="motivo-input"
           >
@@ -145,7 +126,7 @@ const CrearElecciones = () => {
               Congreso nacional de universidades (Delegados docentes y
               estudiantes)
             </option>
-            <option value="Conferencias d facultad">
+            <option value="Conferencias de facultad">
               Conferencias de facultad (Delegados docentes y estudiantes)
             </option>
             <option value="Consejo universitario">

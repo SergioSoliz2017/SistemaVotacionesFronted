@@ -23,7 +23,7 @@ export default VerElecciones;*/
 
 const VerElecciones = ({ lista }) => {
   //const numRows = 4; // Número de filas
-  const url = 'http://127.0.0.1:8000/'
+  const url = "http://localhost:8000/";
 
   const handleVerDetalleClick = () => {
     console.log("Ver detalle");
@@ -47,9 +47,8 @@ const VerElecciones = ({ lista }) => {
     </tr>
   ));*/
   useEffect(() => {
-    axios.get(url + "obtenerProcesosElectorales").then(response => {
+    axios.get(url + "elecciones").then(response => {
       setListaElecciones(response.data)
-      console.log(listaElecciones)
     })
   }, [lista]);
   return (
@@ -67,8 +66,8 @@ const VerElecciones = ({ lista }) => {
         listaElecciones.map((eleccion) => {
           return(
             <tr>
-            <th>{eleccion.CARGO}</th>
-            <th>{eleccion.FECHAELECCIONES}</th>
+            <th>{eleccion.MOTIVO_ELECCION}</th>
+            <th>{eleccion.FECHA_ELECCION}</th>
             <th>{eleccion.Detalle}</th>
             <th>{eleccion.Convocatoria}</th>
           </tr>

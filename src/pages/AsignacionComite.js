@@ -14,7 +14,7 @@ function AsignacionComite() {
   useEffect(() => {
     // Realiza una solicitud GET al servidor para obtener la lista de elecciones
     axios
-      .get("http://localhost:8000/obtenerProcesosElectorales")
+      .get("http://localhost:8000/elecciones")
       .then((response) => {
         setproceso(response.data);
       })
@@ -23,10 +23,10 @@ function AsignacionComite() {
       });
   }, []);
 
-  const handleAsociarClick = (COD_ELECCION, COD_COMITE) => {
+  const handleAsociarClick = (CODPROCESOELECTORAL, COD_COMITE) => {
     // Realizar una solicitud PUT para asociar el comité a la elección
     axios
-      .put(`http://localhost:8000/asignar-comite/${COD_ELECCION}`)
+      .put(`http://localhost:8000/asignar-comite/${CODPROCESOELECTORAL}`)
       .then((responseComite) => {
         console.log("Asignación de comité exitosa:", responseComite.data);
 
@@ -79,15 +79,15 @@ function AsignacionComite() {
           </thead>
           <tbody className="BodyComite">
             {proceso.map((elemento) => (
-              <tr key={elemento.CODPROCESOELECTORAL}>
-                <td>{elemento.CODPROCESOELECTORAL}</td>
-                <td>{elemento.CARGO}</td>
+              <tr key={elemento.COD_ELECCION}>
+                <td>{elemento.COD_ELECCION}</td>
+                <td>{elemento.MOTIVO_ELECCION}</td>
                 <td>
                   <button
                     className="botonComite1"
                     class="custom-btn btn-2"
                     onClick={() =>
-                      handleAsociarClick(elemento.CODELECCION, elemento.CODCOMITE)
+                      handleAsociarClick(elemento.COD_ELECCION, elemento.COD_COMITE)
                     }
                   >
                     Asignar
