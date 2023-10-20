@@ -3,6 +3,7 @@ import '../css/normalize.css'
 import '../css/estilos.css'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
+
 const LoginPage = () => {
 
     const [showErrorNombre, setshowErrorName] = useState(false)
@@ -117,4 +118,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default LoginPage;

@@ -1,0 +1,79 @@
+.CuerpoConvocatoria{
+    width: 33rem;
+    height: auto;
+     background-color: rgba(0, 56, 116, 0.84);
+     margin-top: 3rem;
+     margin-left: 30rem;
+}
+.ConvocatoriaTitulo{
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+.LabelCrearConvocatoria{
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-left: 1.5rem;
+    margin-right: -1rem;
+}
+.NormalConvocatoria{
+    color: black;
+    font-size: 1.5rem;
+    margin-left: 1.5rem;
+}
+.ContenedorConvocatoriaTexto{
+    display: flex;
+  align-items: center;
+}
+.TextConvocatoria{
+    margin-left: 1.5rem;
+    width: calc(90% - 20px);
+}
+ /* 1 */
+ .btn-10 {
+    background: rgb(0,187,45);
+    background: linear-gradient(0deg, rgba(0,187,45,1) 0%, rgba(33,183,45,1) 100%);
+    border: none;
+    width: 9.3rem;
+    justify-content: center;
+    margin-right: 2rem;
+    
+  }
+  .btn-10:before {
+    height: 0%;
+    width: 1.5px;
+  }
+  .btn-10:hover {
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+      inset -4px -4px 6px 0 rgba(255,255,255,.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+  }
+
+    /* 1 */
+  .btn-11 {
+    background: rgb(0,172,238);;
+    background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+    border: none;
+    width: 8rem;
+    justify-content: center;
+    
+  }
+  .btn-11:before {
+    height: 0%;
+    width: 1.5px;
+  }
+  .btn-11:hover {
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+      inset -4px -4px 6px 0 rgba(255,255,255,.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+  }
+  .BotonesDivCrearConvocatoria{
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    text-align: center;
+    margin-left: 1.2rem;
+  }

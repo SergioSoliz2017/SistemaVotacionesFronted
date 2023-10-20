@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from './pages/LoginPage';
 import IndexPage from './pages/IndexPage';
 import MenuIzquierdo from './pages/MenuIzquierdo';
-import ActualizarEleccion from './pages/ActualizarElecciones';
+import ActualizarEleccion from './pages/ActualizarEleccionModal';
 import PdfConvocatoria from './pages/pdfConvocatoria';
 function App() {
   return (

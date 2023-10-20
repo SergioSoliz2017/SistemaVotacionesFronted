@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
 import axios from "axios";
-import Modal from "./Modal";
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useNavigate, useParams } from "react-router-dom";
+import "../css/ActualizacionEleccionModal.css"
 
+Modal.setAppElement("#root");
 
-const ActualizarEleccion = () => {
-    const { id } = useParams();
+const ActualizarEleccionModal = ({ isOpen, closeModal, eleccionId }) => {
+  const { id } = useParams();
   const initialState = {
     motivoEleccion: "",
     fechaInicio: "",
@@ -14,21 +15,14 @@ const ActualizarEleccion = () => {
     fechaElecciones: "",
   };
 
-  
-
-  const navigate = useNavigate(); // Inicializa useNavigate
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(initialState);
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-
   const url = "http://localhost:8000/";
-
+  console.log(url + `obtener_id/${eleccionId}`);
   useEffect(() => {
-    // Realiza una solicitud GET para obtener los datos de la elección con el ID proporcionado
-    axios
-      .get(url + `obtener_id/${id}`)
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url + `obtener_id/${eleccionId}`);
         const eleccion = response.data;
         setFormData({
           motivoEleccion: eleccion.MOTIVO_ELECCION,
@@ -36,11 +30,14 @@ const ActualizarEleccion = () => {
           fechaFin: eleccion.FECHA_FIN_CONVOCATORIA,
           fechaElecciones: eleccion.FECHA_ELECCION,
         });
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error al obtener los datos de la elección:", error);
-      });
-  }, [id]);
+      }
+    };
+
+    fetchData();
+  }, [eleccionId]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,19 +45,16 @@ const ActualizarEleccion = () => {
   };
 
   const handleActualizarClick = () => {
-  
-    console.log(id);
-
     axios
-      .put(url + `eleccionesUpdate/${id}`, {
+      .put(url + `eleccionesUpdate/${eleccionId}`, {
         MOTIVO_ELECCION: formData.motivoEleccion,
         FECHA_INI_CONVOCATORIA: formData.fechaInicio,
         FECHA_FIN_CONVOCATORIA: formData.fechaFin,
         FECHA_ELECCION: formData.fechaElecciones,
       })
       .then((response) => {
-        setModalMessage("Proceso electoral actualizado correctamente.");
-        //setShowModal(true);
+        closeModal();
+        // Puedes mostrar un mensaje de éxito aquí si lo deseas.
       })
       .catch((error) => {
         console.error("Error al actualizar el proceso electoral:", error);
@@ -68,15 +62,22 @@ const ActualizarEleccion = () => {
   };
 
   const handleVolverAtras = () => {
-    navigate('/home'); // Reemplaza '/otraRuta' con la URL de la página a la que deseas redirigir
+    closeModal();
+    navigate("/home");
   };
 
   return (
-    <div className="crear-elecciones">
-      <h3>Actualizar proceso electoral</h3>
+    <Modal
+    className={"Cuerpo"}
+      isOpen={isOpen}
+      onRequestClose={closeModal}
+      contentLabel="Actualizar Elección"
+    >
+      <h3 className="ActualizarTitulo">Actualizar proceso electoral</h3>
       <div className="form-group">
-        <label>Motivo de Elección:</label>
+        <label className="LabelCrearActualizar">Motivo de Elección:</label>
         <input
+          className="InputCrearActualizar"
           type="text"
           name="motivoEleccion"
           value={formData.motivoEleccion}
@@ -84,8 +85,9 @@ const ActualizarEleccion = () => {
         />
       </div>
       <div className="form-group">
-        <label>Fecha inicio de convocatoria:</label>
+        <label className="LabelCrearActualizar">Fecha inicio de convocatoria:</label>
         <input
+          className="InputCrearActualizar"
           type="date"
           name="fechaInicio"
           value={formData.fechaInicio}
@@ -94,8 +96,9 @@ const ActualizarEleccion = () => {
         />
       </div>
       <div className="form-group">
-        <label>Fecha fin de convocatoria:</label>
+        <label className="LabelCrearActualizar">Fecha fin de convocatoria:</label>
         <input
+          className="InputCrearActualizar"
           type="date"
           name="fechaFin"
           value={formData.fechaFin}
@@ -104,8 +107,9 @@ const ActualizarEleccion = () => {
         />
       </div>
       <div className="form-group">
-        <label>Fecha de las elecciones:</label>
+        <label className="LabelCrearActualizar">Fecha de las elecciones:</label>
         <input
+          className="InputCrearActualizar"
           type="date"
           name="fechaElecciones"
           value={formData.fechaElecciones}
@@ -113,13 +117,17 @@ const ActualizarEleccion = () => {
           onChange={handleInputChange}
         />
       </div>
-      <button className="volver-button" onClick={handleVolverAtras}>Volver</button>
-      <button className="guardar-button" onClick={handleActualizarClick}>
+      <div className="BotonesDivCrearActualizar">
+      <button className ="custom-btn btn-9" onClick={handleActualizarClick}>
         Actualizar
       </button>
-     
-    </div>
+      <button className ="custom-btn btn-8" onClick={handleVolverAtras}>
+        Volver
+      </button>
+      </div>
+      
+    </Modal>
   );
 };
 
-export default ActualizarEleccion;
+export default ActualizarEleccionModal;
