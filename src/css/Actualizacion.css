@@ -1,0 +1,13 @@
+.Madre{
+    display: flex; 
+flex-direction: row;
+height: 100%;
+}
+
+.EspacioMenu{
+    width: 355px;
+    border: solid;
+}
+.crear-elecciones{
+    width: 100%;
+}

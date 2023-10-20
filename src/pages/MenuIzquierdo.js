@@ -76,7 +76,7 @@ function MenuIzquierdo() {
                                         >
                                             
                                                 <span class="icon"><i class="fas fa-home"></i></span>
-                                                <span class="item">Electivas Activas</span>
+                                                <span class="item">Elecciones Activas</span>
                                                 
                                         </li>
                                         <li  className="row" id={ mostrarVerComite ? "active" : ""}

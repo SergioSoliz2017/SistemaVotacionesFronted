@@ -1,82 +1,70 @@
 import React, { useEffect, useState } from "react";
 import "../css/MenuVertical.css";
+import "../css/botones2.css"
 import axios from "axios";
-/*const VerElecciones = () => {
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Cargo(s) a elección</th>
-          <th>Fecha</th>
-          <th>Detalle</th>
-          <th>Convocatoria</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-      </tbody>
-    </table>
-  );
-};
-
-export default VerElecciones;*/
+import { useNavigate } from 'react-router-dom';
 
 const VerElecciones = ({ lista }) => {
   //const numRows = 4; // Número de filas
+  const navigate = useNavigate();
   const url = "http://localhost:8000/";
 
-  const handleVerDetalleClick = () => {
-    console.log("Ver detalle");
-  };
   const [listaElecciones,setListaElecciones] = useState([])
-  // array con el número de filas
-  /*const rows = Array.from(Array(numRows), (_, index) => (
-    <tr key={index}>
-      <td>Cargo a elección {index + 1}</td>
-      <td>Fecha {index + 1}</td>
-      <td>
-        <button onClick={handleVerDetalleClick} className="ver-detalle-button">
-          Ver Detalle
-        </button>
-      </td>
-      <td>
-        <button onClick={handleVerDetalleClick} className="ver-detalle-button">
-          Ver Convocatoria
-        </button>
-      </td>
-    </tr>
-  ));*/
+
   useEffect(() => {
     axios.get(url + "elecciones").then(response => {
       setListaElecciones(response.data)
     })
   }, [lista]);
+  const handleDetallesClick = (id) => {
+    // Redireccionar o realizar alguna acción al hacer clic en "Detalles de la elección"
+    // Puedes usar react-router-dom o alguna otra biblioteca de enrutamiento si es necesario
+    navigate(`/actualizarEleccion/${id}`);
+  };
+
+  const handleConvocatoriaClick = (id) => {
+    // Redireccionar o realizar alguna acción al hacer clic en "Convocatoria"
+    // Puedes usar react-router-dom o alguna otra biblioteca de enrutamiento si es necesario
+    navigate(`/PdfConvocatoria/${id}`);
+  };
   return (
+    <div className="ver-elecciones">
+      <h3>ELECCIONES ACTIVAS</h3>
     <table>
       <thead>
         <tr>
-          <th>Cargo(s) a elección</th>
-          <th>Fecha</th>
-          <th>Detalle</th>
-          <th>Convocatoria</th>
+          <th>CARGO(S) A ELECCION</th>
+          <th>FECHA</th>
+          <th>DETALLE</th>
+          <th>CONVOCATORIA</th>
         </tr>
       </thead>
       <tbody>
         { listaElecciones.length > 0 &&
         listaElecciones.map((eleccion) => {
           return(
-            <tr>
-            <th>{eleccion.MOTIVO_ELECCION}</th>
-            <th>{eleccion.FECHA_ELECCION}</th>
-            <th>{eleccion.Detalle}</th>
-            <th>{eleccion.Convocatoria}</th>
-          </tr>
+            <tr className="trVerEleccion" key={eleccion.COD_ELECCION}>
+                <td className="especialtd">{eleccion.MOTIVO_ELECCION}</td>
+                <td className="tdNormal">{eleccion.FECHA_ELECCION}</td>
+                <td className="tdNormal">
+                      <button className ="custom-btn btn-4" onClick={() => handleDetallesClick(eleccion.COD_ELECCION)}>
+                             Detalles de la Elección
+                      </button>
+                
+                </td>
+                <td className="tdNormal">
+                      <button className="custom-btn btn-5" onClick={() => handleConvocatoriaClick(eleccion.COD_ELECCION)}>
+                            Convocatoria
+                      </button>
+                </td>
+           </tr>
           )
           
         })}
         
       </tbody>
     </table>
+    </div>
   );
 };
 

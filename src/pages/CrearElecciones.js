@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/MenuVertical.css";
+import "../css/botones.css"
 import Modal from "./Modal";
 import axios from "axios";
 
@@ -81,10 +82,12 @@ const CrearElecciones = () => {
     };
   return (
     <div className="crear-elecciones">
-      <h3>Nuevo proceso electoral</h3>
-      <div className="form-group">
-        <label>¿Quiere iniciar un nuevo tipo de elección?</label>
+      <h3>NUEVO PROCESO ELECTORAL</h3>
+      <div className="NuevoCrear" >
+      <div className="form-group1">
+        <label className="LabelCrear">¿Quiere iniciar un nuevo tipo de elección?</label>
         <select
+          className="InputCrear"
           name="nuevoTipoEleccion"
           value={formData.nuevoTipoEleccion}
           onChange={handleNuevoTipoEleccionChange}
@@ -96,7 +99,7 @@ const CrearElecciones = () => {
       </div>
       {formData.nuevoTipoEleccion === "Si" && (
         <div className="form-group">
-          <label>Motivo:</label>
+          <label className="LabelCrear">Motivo:</label>
           <input
             type="text"
             name="motivoEleccion"
@@ -109,12 +112,13 @@ const CrearElecciones = () => {
       )}
       {formData.nuevoTipoEleccion === "No" && (
         <div className="form-group">
-          <label>Motivo:</label>
+          <label className="LabelCrear" >Motivo:</label>
           <select
+            className="InputCrear"
             name="motivoEleccion"
             value={formData.motivoEleccion}
             onChange={handleInputChange}
-            className="motivo-input"
+
           >
             <option value="">Seleccione una opción</option>
             <option value="Rector">Rector, Vicerrector</option>
@@ -139,8 +143,9 @@ const CrearElecciones = () => {
         </div>
       )}
       <div className="form-group">
-        <label>Fecha inicio de convocatoria:</label>
+        <label className="LabelCrear" >Fecha inicio de convocatoria:</label>
         <input
+          className="InputCrear"
           type="date"
           name="fechaInicio"
           value={formData.fechaInicio}
@@ -149,8 +154,9 @@ const CrearElecciones = () => {
         />
       </div>
       <div className="form-group">
-        <label>Fecha fin de convocatoria:</label>
+        <label className="LabelCrear" >Fecha fin de convocatoria:</label>
         <input
+          className="InputCrear"
           type="date"
           name="fechaFin"
           value={formData.fechaFin}
@@ -159,8 +165,9 @@ const CrearElecciones = () => {
         />
       </div>
       <div className="form-group">
-        <label>Fecha de las elecciones:</label>
+        <label className="LabelCrear" >Fecha de las elecciones:</label>
         <input
+        className="InputCrear"
           type="date"
           name="fechaElecciones"
           value={formData.fechaElecciones}
@@ -168,13 +175,17 @@ const CrearElecciones = () => {
           onChange={handleInputChange}
         />
       </div>
-      <button className="volver-button">Volver</button>
-      <button className="guardar-button" onClick={handleGuardarClick}>
+      <div className="BotonesDivCrear">
+      <button className ="custom-btn btn-6" onClick={handleGuardarClick}>
         Guardar
-      </button>
+      </button>{ "    "}
+      <button className="custom-btn btn-7">Cancelar</button>
+      </div>
+      
       {showModal && (
         <Modal mensaje={modalMessage} onClose={() => setShowModal(false)} />
       )}
+      </div>
     </div>
   );
 };
