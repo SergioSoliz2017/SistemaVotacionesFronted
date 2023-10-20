@@ -16,7 +16,7 @@ const VerElecciones = ({ lista }) => {
   const [listaElecciones,setListaElecciones] = useState([])
 
   useEffect(() => {
-    axios.get(url + "elecciones").then(response => {
+    axios.get(url + "elecciones_index").then(response => {
       setListaElecciones(response.data)
     })
   }, [lista]);

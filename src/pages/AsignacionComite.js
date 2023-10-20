@@ -6,46 +6,78 @@ import axios from "axios";
 import Modal from "react-modal";
 import ListaVocalesComite from "./ListaVocalesComite";
 
-function AsignacionComite() {
+function AsignacionComite({ lista }) {
   const [proceso, setproceso] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [codComite, setCodComite] = useState(null);
-
+  const [existeComite, setExisteComite] = useState(false); // Estado para verificar la existencia del comité
+  const url = "http://localhost:8000/";
   useEffect(() => {
-    // Realiza una solicitud GET al servidor para obtener la lista de elecciones
+    axios.get(url + "elecciones_index").then(response => {
+      setproceso(response.data)
+    })
+  }, [lista]);
+
+
+  // Función para verificar la existencia del comité
+  const verificarExistenciaComite = (codComite) => {
+    // Realiza una solicitud GET al servidor de Laravel para verificar la existencia del comité
     axios
-      .get("http://localhost:8000/elecciones")
+      .get(`http://localhost:8000/verificar-comite/${codComite}`)
       .then((response) => {
-        setproceso(response.data);
+        
+        // La respuesta debe ser un objeto JSON con el campo "existeComite"
+        if (response.data.existeComite) {
+          // Si el comité no existe, establece setExisteComite en true
+          setExisteComite(true);
+          console.log("El comité no existe");
+        } else {
+          // Si el comité existe, puedes realizar otras acciones aquí
+          setExisteComite(false);
+          console.log("El comité existe");
+        }
       })
       .catch((error) => {
-        console.error("Error al obtener la lista de elecciones:", error);
+        console.error("Error al verificar la existencia del comité:", error);
       });
-  }, []);
+  };
 
-  const handleAsociarClick = (CODPROCESOELECTORAL, COD_COMITE) => {
-    // Realizar una solicitud PUT para asociar el comité a la elección
-    axios
-      .put(`http://localhost:8000/asignar-comite/${CODPROCESOELECTORAL}`)
-      .then((responseComite) => {
-        console.log("Asignación de comité exitosa:", responseComite.data);
+  
+  const handleAsociarClick = (COD_ELECCION, COD_COMITE) => {
+    // Antes de asociar el comité, verifica si existe
+    verificarExistenciaComite(COD_COMITE);
 
-        // Luego, realizar una solicitud POST para asignar vocales al comité
-        axios
-          .post(`http://localhost:8000/asignar-vocales/${COD_COMITE}`)
-          .then((responseVocales) => {
-            console.log("Asignación de vocales exitosa:", responseVocales.data);
-            setCodComite(COD_COMITE);
-    setModalIsOpen(true);
-          })
-          .catch((errorVocales) => {
-            console.error("Error en la asignación de vocales:", errorVocales);
-          });
-      })
-      .catch((errorComite) => {
-        console.error("Error en la asignación de comité:", errorComite);
-      });
-      
+    
+  
+    // Realiza la asignación solo si el comité existe
+    if (!existeComite) {
+      console.log(!existeComite)
+      //elecciones/asignar_comite/  AQUI CAMBIAR RUTA----------------ruta asi cambiar
+      // Realizar una solicitud PUT para asociar el comité a la elección
+      axios
+        .put(`http://localhost:8000/asignar-comite/${COD_ELECCION}`)
+        .then((responseComite) => {
+          console.log("Asignación de comité exitosa:", responseComite.data);
+
+          // Luego, realizar una solicitud POST para asignar vocales al comité
+          axios
+            .post(`http://localhost:8000/asignar-vocales/${COD_COMITE}`)
+            .then((responseVocales) => {
+              console.log("Asignación de vocales exitosa:", responseVocales.data);
+              setCodComite(COD_COMITE);
+              setModalIsOpen(true);
+            })
+            .catch((errorVocales) => {
+              console.error("Error en la asignación de vocales:", errorVocales);
+            });
+        })
+        .catch((errorComite) => {
+          console.error("Error en la asignación de comité:", errorComite);
+        });
+    } else {
+      // Puedes mostrar un mensaje de error o tomar otras medidas si el comité no existe
+      console.log("No se puede asignar el comité porque no existe");
+    }
   };
 
   const handleVerListaClick = (eleccionId) => {

@@ -15,7 +15,7 @@ const LoginPage = () => {
     // const [nombre,setNombre] = useState()
     let errorNombre = false
     let errorContraseña = false
-    const url = 'http://127.0.0.1:8000/'
+    const url = 'http://localhost:8000/'
 
     const navigate = useNavigate()
 
@@ -43,11 +43,13 @@ const LoginPage = () => {
       {
         console.log( showValorInput.name);
         console.log(url + "verificarAdministrador/"+ showValorInput.name);
-        axios.get(url + "verificarAdministrador/"+ 10).then(response => {
+        axios.get(url + "verificarAdministrador/"+ showValorInput.name).then(response => {
             console.log(response.data)
             
-            if (response.data.length>0){
-                if (showValorInput.password === response.data[0].CONTRASENAADMINISTRADOR){
+            if (response.data){
+                const administrador = response.data;
+   
+                if (showValorInput.password === administrador.CONTRASENAADMINISTRADOR){
                     alert("administrador correcto")
                     navigate("/home")
                 }else{

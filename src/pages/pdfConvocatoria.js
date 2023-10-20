@@ -34,6 +34,7 @@ const PdfConvocatoria = ({ isOpen, closeModal, eleccionId }) => {
     doc.text(`Fecha de Elección: ${eleccion.FECHA_ELECCION}`, 10, 40);
     doc.text(`Descripción: ${descripcion}`, 10, 50);
     doc.save('Detalles_Eleccion.pdf');
+    closeModal();
   };
 
   const handleDescripcionChange = (e) => {

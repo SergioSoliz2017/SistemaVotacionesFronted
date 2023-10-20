@@ -17,6 +17,8 @@ const ActualizarEleccionModal = ({ isOpen, closeModal, eleccionId }) => {
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialState);
+  const [modalMessage, setModalMessage] = useState("");
+  const[modalIsOpen, setModalIsOpen] = useState(false);
   const url = "http://localhost:8000/";
   console.log(url + `obtener_id/${eleccionId}`);
   useEffect(() => {
@@ -53,7 +55,9 @@ const ActualizarEleccionModal = ({ isOpen, closeModal, eleccionId }) => {
         FECHA_ELECCION: formData.fechaElecciones,
       })
       .then((response) => {
+        
         closeModal();
+        setModalIsOpen(true);
         // Puedes mostrar un mensaje de éxito aquí si lo deseas.
       })
       .catch((error) => {
@@ -65,9 +69,17 @@ const ActualizarEleccionModal = ({ isOpen, closeModal, eleccionId }) => {
     closeModal();
     navigate("/home");
   };
-
+  const cerrarModal= () => {
+    setModalIsOpen(false);
+  };
+  const handleModalClick = (e) => {
+    if (e.target === e.currentTarget) {
+      cerrarModal();
+    }
+  };
   return (
-    <Modal
+    <>
+     <Modal
     className={"Cuerpo"}
       isOpen={isOpen}
       onRequestClose={closeModal}
@@ -125,8 +137,30 @@ const ActualizarEleccionModal = ({ isOpen, closeModal, eleccionId }) => {
         Volver
       </button>
       </div>
-      
     </Modal>
+    <Modal  
+        className={"ActualizarModal"}
+        isOpen={modalIsOpen}
+        onRequestClose={cerrarModal}
+        contentLabel="Modal de actualizacion"
+        onClick={handleModalClick}>
+          
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <div className="ContenedorTituloMo">
+                      <h5 class="modal-title">Confirmacion de actualizacion</h5>
+                      </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={cerrarModal}></button>
+                    </div>
+                    <div class="modal-body">
+                      <p className="LetraActualizacionConf">Se actualizo correctamente el proceso !</p>
+                    </div>
+                    
+                  </div>
+            
+      </Modal>  
+    </>
+   
   );
 };
 
